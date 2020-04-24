@@ -27,7 +27,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * @module drivelist
  */
-const bindings = require("bindings");
 const os_1 = require("os");
 const lsblk_1 = require("./lsblk");
 /**
@@ -50,8 +49,8 @@ function list() {
         const plat = os_1.platform();
         if (plat === 'win32' || plat === 'darwin') {
             return new Promise((resolve, reject) => {
-                bindings('drivelist').list((error, drives) => {
-                    if (error != null) {
+                require(`../binary/${plat}`).list((error, drives) => {
+                    if (error !== null) {
                         reject(error);
                     }
                     else {
